@@ -1,3 +1,0 @@
-[submodule "simplecs"]
-	path = lib/simplecs
-	url = git@github.com:axelduch/simplecs
