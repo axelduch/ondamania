@@ -37,6 +37,7 @@ function initGameComponents(game) {
 
 function initGameSystems(game) {
     game.systems = [
+        game.ecs.systems.physics,
         game.ecs.systems.render
     ];
 }
@@ -49,19 +50,44 @@ function initGameEntities(game) {
     var shared = game.ecs.components.shared;
     var context2d = game.canvas.getContext('2d');
 
-    for (var i = 0; i < 100; i++) {
+    // init ground
+    var ground = game.ecs.entity();
+    var groundWidth = context2d.canvas.width;
+    var groundHeight = 20;
+    ground.add(dedicated.context2d({ value: context2d }));
+    ground.add(dedicated.position({ x: 0, y: context2d.canvas.height - groundHeight }));
+    ground.add(dedicated.appearance({ width: groundWidth, height: groundHeight,
+        color: {
+            r: 0, g: 255, b: 0, a: 1
+        }
+    }));
+    ground.add(dedicated.hitbox({ width: groundWidth, height: groundHeight }));
+
+    game.entities[ground.id] = ground;
+
+    // init shit
+    for (var i = 0; i < 150; i++) {
         var entity = game.ecs.entity();
+        var width = Math.max(1, 250 / i);
+        var height = Math.max(2, 50 / i);
+
         entity.add(dedicated.context2d({ value: context2d }));
-        entity.add(dedicated.position({ x: i * 4, y: i * 3 }));
+        entity.add(dedicated.position({ x: width, y: 0 }));
         entity.add(dedicated.appearance({
             color: { r: (Math.random() * 127) | 0 + 128, g: 10, b: 10, a: 1 },
-            width: i,
-            height: 5 + Math.random() * i - i * 0.5
+            width: width,
+            height: height
         }));
+        entity.add(dedicated.hitbox({ width: width, height: height }));
+        entity.add(shared.gravity);
+        entity.add(dedicated.velocity());
+        entity.add(dedicated.acceleration());
+        entity.add(dedicated.mass({ value: entity.components.appearance.width * entity.components.appearance.height }));
 
         game.entities[entity.id] = entity;
     }
 }
+
 
 function initECSComponents(game) {
     game.ecs.components.shared = game.components.shared;
@@ -74,6 +100,6 @@ function initECSSystems(game) {
 }
 
 function initCanvas(canvas) {
-    canvas.width = 800;
-    canvas.height = 600;
+    canvas.width = 500;
+    canvas.height = 500;
 }
