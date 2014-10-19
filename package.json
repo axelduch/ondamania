@@ -18,7 +18,7 @@
     "gulp-rename": "^1.2.0",
     "gulp-watch": "^1.0.5",
     "livereload": "^0.3.4",
-    "simplecs": "^1.0.0"
+    "simplecs": "^1.0.1"
   },
   "repository": {
     "type": "git",
