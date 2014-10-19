@@ -14,7 +14,7 @@ server.use(express.static('.'));
 
 paths = {
     'mainScript': mainScript,
-    'scripts': [mainScript, './src/js/**/*.js'],
+    'scripts': [mainScript, './src/js/**/*.js', './lib/**/*.js'],
     'html': './src/index.html'
 };
 
@@ -28,7 +28,7 @@ gulp.task('browserify', function () {
     return gulp.src(paths.mainScript)
         .pipe(browserify().on('error', function (e) { console.log('Browserify has failed\n', e); }))
         .pipe(rename('index.js'))
-        .pipe(gulp.dest('./dist/js'))
+        .pipe(gulp.dest('./dist/js'));
 });
 
 gulp.task('serve', function () {
