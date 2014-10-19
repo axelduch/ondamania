@@ -26,7 +26,7 @@ gulp.task('jshint', function () {
 
 gulp.task('browserify', function () {
     return gulp.src(paths.mainScript)
-        .pipe(browserify().on('error', function (e) { console.log('Browserify has failed\n', e); }))
+        .pipe(browserify({ debug: true }).on('error', function (e) { console.log('Browserify has failed\n', e); }))
         .pipe(rename('index.js'))
         .pipe(gulp.dest('./dist/js'));
 });
