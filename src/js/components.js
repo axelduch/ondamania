@@ -1,6 +1,7 @@
 module.exports = {
     dedicated: {
         mass: require('./components/dedicated/mass.js'),
+        rotation: require('./components/dedicated/rotation.js'),
         position: require('./components/dedicated/position.js'),
         velocity: require('./components/dedicated/velocity.js'),
         acceleration: require('./components/dedicated/acceleration.js'),
