@@ -62,6 +62,7 @@ function initGameEntities(game) {
         }
     }));
     ground.add(dedicated.hitbox({ width: groundWidth, height: groundHeight }));
+    ground.add(dedicated.rotation());
 
     game.entities[ground.id] = ground;
 
@@ -82,6 +83,7 @@ function initGameEntities(game) {
         entity.add(shared.gravity);
         entity.add(dedicated.velocity());
         entity.add(dedicated.acceleration());
+        entity.add(dedicated.rotation());
         entity.add(dedicated.mass({ value: entity.components.appearance.width * entity.components.appearance.height }));
 
         game.entities[entity.id] = entity;
